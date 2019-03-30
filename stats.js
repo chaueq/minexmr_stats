@@ -1,4 +1,4 @@
-window.ADDRESS = 'error';
+window.ADDRESS = "error";
 
 function loadAddress(callback)
 {
@@ -86,8 +86,25 @@ function pool_stats(response)
 	setLast('lastBlock', response.pool.lastBlockFound / 1000);
 }
 
+function copyAddressToClipboard()
+{
+	const input = document.createElement("input");
+	document.body.appendChild(input);
+	input.class = "tmp";
+	input.value = window.ADDRESS;
+	input.select();
+	document.execCommand("copy");
+	document.body.removeChild(input);
+}
+
+//────────────────────────────────────────────────────────────────────────\\
+//────────────────────────────────────────────────────────────────────────\\
+
+
+
 loadAddress(() => {
 	httpGetAsync('https://minexmr.com/api/pool/get_wid_stats?address=' + window.ADDRESS, wid_stats);
+	document.getElementById('copyAddress').addEventListener('click', copyAddressToClipboard);
 });
 httpGetAsync('https://minexmr.com/api/pool/stats', pool_stats);
 

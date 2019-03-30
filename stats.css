@@ -1,3 +1,7 @@
 .progress{
 	width: 22ex;
 }
+
+input.tmp{
+	display: none;
+}
