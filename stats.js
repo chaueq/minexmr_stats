@@ -100,11 +100,17 @@ function copyAddressToClipboard()
 //────────────────────────────────────────────────────────────────────────\\
 //────────────────────────────────────────────────────────────────────────\\
 
-
-
 loadAddress(() => {
 	httpGetAsync('https://minexmr.com/api/pool/get_wid_stats?address=' + window.ADDRESS, wid_stats);
 	document.getElementById('copyAddress').addEventListener('click', copyAddressToClipboard);
 });
 httpGetAsync('https://minexmr.com/api/pool/stats', pool_stats);
+
+//────────────────────────────────────────────────────────────────────────\\
+//────────────────────────────────────────────────────────────────────────\\
+
+let keepUpdated = window.setInterval(() => {
+	httpGetAsync('https://minexmr.com/api/pool/get_wid_stats?address=' + window.ADDRESS, wid_stats);
+	httpGetAsync('https://minexmr.com/api/pool/stats', pool_stats);
+}, 15000);
 
