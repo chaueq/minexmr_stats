@@ -55,11 +55,25 @@ function setLast(elementID, timestamp)
 	document.getElementById(elementID).innerHTML = ("0" + date.getDate()).substr(-2) + "-" + ("0" + (date.getMonth() + 1)).substr(-2) + "-" + date.getFullYear() + " " + ("0" + date.getHours()).substr(-2) + ":" + ("0" + date.getMinutes()).substr(-2);
 }
 
+function setWorker(workerName)
+{
+	let comment = document.getElementById('lastWorker');
+	if(workerName == ''){
+		comment.style = "display: none;";
+		comment.innerHTML = "";
+	}
+	else{
+		comment.style = "";
+		comment.innerHTML = "<br/>by " + workerName;
+	}
+}
+
 function wid_stats(response)
 {
 	//window.alert(ADDRESS);
 	response = JSON.parse(response);
 	let lastShare = 0;
+	let lastWorker = '';
 	let main = response[0];
 	for(var key in response)
 	{
@@ -69,15 +83,17 @@ function wid_stats(response)
 		
 		if(response[key].lastShare > lastShare){
 			lastShare = response[key].lastShare;
+			lastWorker = response[key].address.substr(96);
 		}
 	}
-	
+
 	main.thold /= 1000000000000;
 	main.balance /= 1000000000000;
 	
 	setThold(main.thold);
 	setBalance(main.balance);
 	setLast('lastShare', lastShare);
+	setWorker(lastWorker);
 }
 
 function pool_stats(response)
