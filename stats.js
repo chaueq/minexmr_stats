@@ -105,9 +105,9 @@ function pool_stats(response)
 function copyAddressToClipboard()
 {
 	const input = document.createElement("input");
-	document.body.appendChild(input);
-	input.class = "tmp";
+	input.style = "display: none;";
 	input.value = window.ADDRESS;
+	document.body.appendChild(input);
 	input.select();
 	document.execCommand("copy");
 	document.body.removeChild(input);
