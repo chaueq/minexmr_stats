@@ -106,7 +106,7 @@ function copyAddressToClipboard()
 {
 	const input = document.createElement("input");
 	document.body.appendChild(input);
-	input.setAttribute("value", window.ADDRESS);
+	input.value = window.ADDRESS;
 	input.select();
 	document.execCommand("copy");
 	document.body.removeChild(input);
